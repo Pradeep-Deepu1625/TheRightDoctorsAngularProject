@@ -1,0 +1,79 @@
+<!-- <table>
+  <thead>
+    <tr>
+      <th>Flag</th>
+      <th>Name</th>
+      <th>Population</th>
+      <th>Capital</th>
+      <th>Region</th>
+    </tr>
+  </thead>
+  <tbody>
+    @for (country of countries; track country.name.common) {
+    <tr>
+      <td><img [src]="country.flags?.png" alt="Flag" width="50" /></td>
+      <td>{{ country.name.common }}</td>
+      <td>{{ country.population }}</td>
+      <td>{{ country.capital?.[0] }}</td>
+      <td>{{ country.region }}</td>
+    </tr>
+    }
+  </tbody>
+</table> -->
+<!-- <div class="table-container">
+    <table>
+      <thead>
+        <tr>
+          <th>Flag</th>
+          <th>Name</th>
+          <th>Population</th>
+          <th>Capital</th>
+          <th>Currencies</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let country of countries">
+          <td><img [src]="country.flags?.png" alt="Flag"></td>
+          <td>{{ country.name.common }}</td>
+          <td>{{ country.population | number }}</td>
+          <td>{{ country.capital?.[0] }}</td>
+          <td>
+            <span *ngFor="let currency of getCurrencies(country.currencies)">
+              {{ currency.name }} ({{ currency.symbol }})
+            </span>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div> -->
+
+  <table>
+    <thead>
+      <tr>
+        <th>Flag</th>
+        <th>Name</th>
+        <th>Population</th>
+        <th>Capital</th>
+        <th>Region</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let country of countries; let i = index">
+        <td><img [src]="country.flags?.png" alt="Flag" width="50"></td>
+        <td *ngIf="editIndex !== i">{{ country.name.common }}</td>
+        <td *ngIf="editIndex === i"><input [(ngModel)]="editedCountry.name.common"></td>
+        <td *ngIf="editIndex !== i">{{ country.population }}</td>
+        <td *ngIf="editIndex === i"><input [(ngModel)]="editedCountry.population"></td>
+        <td *ngIf="editIndex !== i">{{ country.capital?.[0] }}</td>
+        <td *ngIf="editIndex === i"><input [(ngModel)]="editedCountry.capital[0]"></td>
+        <td *ngIf="editIndex !== i">{{ country.region }}</td>
+        <td *ngIf="editIndex === i"><input [(ngModel)]="editedCountry.region"></td>
+        <td>
+          <button *ngIf="editIndex !== i" (click)="editCountry(i)">Edit</button>
+          <button *ngIf="editIndex === i" (click)="saveEdit(i)">Save</button>
+          <button (click)="deleteCountry(i)">Delete</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
